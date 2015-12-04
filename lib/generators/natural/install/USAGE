@@ -1,0 +1,9 @@
+Description:
+  Install the dependencies for using NaturalResource
+
+Example:
+    rails generate natural:install
+
+    This will create:
+      app/policies/application_policy.rb
+

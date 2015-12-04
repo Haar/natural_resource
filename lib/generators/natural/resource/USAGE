@@ -1,0 +1,17 @@
+Description:
+  Generator to generate a natural_resource controller and it's dependencies.
+  Can be called via controller_name and with or without the model (inferred without).
+
+Example:
+    rails generate natural:resource controller_name policy_model_name
+
+    This will create:
+      app/controllers/#{controller_name}.rb
+      app/policies/#{model_name}_policy.rb
+
+    rails generate natural:resource controller_name
+
+    This will create:
+      app/controllers/#{controller_name}.rb
+      app/policies/#{controller_name.singularize}_policy.rb
+
