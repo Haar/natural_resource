@@ -71,7 +71,7 @@ module NaturalResource
         end
 
         define_method :resource_scope do
-          resource_class
+          resource_class.all
         end
 
         define_method :success_path do
