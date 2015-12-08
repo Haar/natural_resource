@@ -1,3 +1,4 @@
+require 'natural_resource/version'
 require 'natural_resource/controller'
 require 'natural_resource/policy'
 require 'generators/natural'
