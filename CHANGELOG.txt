@@ -7,3 +7,4 @@ Change Log
 0.1.3: * PULLED *
 0.1.4: Fix overriding of inherited `current_context`
 0.1.5: Add missing pundit rspec helper
+0.1.5: Fix loading of pundit rspec helper
