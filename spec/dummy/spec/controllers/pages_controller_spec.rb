@@ -130,4 +130,28 @@ RSpec.describe PagesController, type: :controller do
       end
     end
   end
+
+  describe '#current_context' do
+    it 'allows you to override directly' do
+      expect(controller.current_context).to eql :public
+    end
+  end
+end
+
+class BaseTestController < ActionController::Base
+  def current_context
+    :admin
+  end
+end
+
+class MyTestController < BaseTestController
+  resource :pages
+end
+
+describe MyTestController, type: :controller do
+  describe '#current_context' do
+    it 'lets you inherit the context from a parent' do
+      expect(controller.current_context).to eql :admin
+    end
+  end
 end

@@ -47,7 +47,9 @@ module NaturalResource
 
         private
 
-        define_method :current_context do; end
+        unless instance_methods.include?(:current_context)
+          define_method :current_context do; end
+        end
 
         # Resource allocation methods
         define_method :query do

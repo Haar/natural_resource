@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "ransack", "~> 1.7"
   s.add_dependency "will_paginate", "~> 3.0"
 
+  s.add_development_dependency "pry", '~> 0.10'
   s.add_development_dependency "sqlite3", '~> 1.3'
   s.add_development_dependency 'rspec-rails', '~> 3.4'
   s.add_development_dependency 'haml-rails', '~> 0.9'
