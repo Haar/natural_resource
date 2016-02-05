@@ -4,3 +4,5 @@ Change Log
 0.1.0: Initial disributed release
 0.1.1: Fix Namespacing issue
 0.1.2: Fix forcing lazy-loaded scoping
+0.1.3: * PULLED *
+0.1.4: Fix overriding of inherited `current_context`
