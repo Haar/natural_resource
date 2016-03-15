@@ -10,7 +10,7 @@ module NaturalResource
     include Pundit
 
     class_methods do
-      def resource(resource_name)
+      def resource(resource_name, display_notices: true)
         after_action :verify_authorized, except: :index
         after_action :verify_policy_scoped
 
@@ -30,19 +30,19 @@ module NaturalResource
         # POST /:controller_name
         define_method :create do
           resource.update! resource_params
-          redirect_to success_path, {notice: "#{resource} was created."}
+          success_redirect(:created)
         end
 
         # PUT /:controller_name/:id
         define_method :update do
           resource.tap { |r| r.update! resource_params }.touch
-          redirect_to success_path, {notice: "#{resource} was updated."}
+          success_redirect(:updated)
         end
 
         # DELETE /:controller_name/:id
         define_method :destroy do
           resource.destroy
-          redirect_to success_path, {notice: "#{resource} was deleted."}
+          success_redirect(:deleted)
         end
 
         private
@@ -78,6 +78,13 @@ module NaturalResource
 
         define_method :success_path do
           url_for(action: :index)
+        end
+
+        define_method :success_redirect do |action|
+          redirect_options = {}
+          redirect_options.merge!({notice: "#{resource} was #{action}."}) if display_notices
+
+          redirect_to success_path, redirect_options
         end
       end
     end
