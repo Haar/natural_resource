@@ -68,6 +68,11 @@ RSpec.describe PagesController, type: :controller do
         action
         expect(response).to redirect_to pages_path
       end
+
+      it 'displays a flash notice' do
+        action
+        expect(flash[:notice]).to eql 'Some title was created.'
+      end
     end
 
     context 'when an anon user' do
@@ -99,14 +104,19 @@ RSpec.describe PagesController, type: :controller do
 
   describe 'PUT :update' do
     let(:action) do
-      put :update, id: page.id, page: {title: 'New Title'}
+      put :update, id: page.id, page: {title: 'New title'}
     end
 
     context 'when signed in' do
       before { allow(controller).to receive(:current_user).and_return(User.new) }
 
       it 'updates the page' do
-        expect { action }.to change { page.reload.title }.from('allowed').to('New Title')
+        expect { action }.to change { page.reload.title }.from('allowed').to('New title')
+      end
+
+      it 'displays a success notice' do
+        action
+        expect(flash[:notice]).to eql 'New title was updated.'
       end
     end
 
