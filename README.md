@@ -12,6 +12,9 @@ Our common use-case for Natural Resource is in any back-end/admin-style sections
 
 We found the pattern straightforward and useful, and used the experience to help in building a standardised API using the same approach (with a couple of precondition extensions to pundit returning appropriate 412 HTTP responses). We may look to open-sourcing the API extensions soon too!
 
+#### It does not include the kitchen sink
+
+To clarify this is in no way meant to become the foundation of all controllers and implementation approaches; we ourselves use the [Interactor](https://github.com/collectiveidea/interactor) gem to implement reuseable and modular control-flow behaviours that better reflect our business logic in favour of spreading it out over callbacks and other magical behaviour. Natural Resource is a tool designed to make our lives easier and the pros and cons of its use should be considered in-context.
 
 # Getting Started
 
@@ -32,6 +35,29 @@ rails g natural:resource controller_name optional_model_name
 ```
 
 The overall codebase for NaturalResource is very small and the bulk of the functionality can be found in `lib/natural_resource/controller.rb`, it's all relatively simple ruby code designed to be expanded on top for any custom functionality. To understand how Pundit works I suggest visiting their repository and going through the basics.
+
+## Example controller
+
+``` ruby
+class TransactionController < ApplicationController
+  include AdminController
+  include ReportGeneration
+
+  resource :transaction
+
+  before_action :set_default_query_params
+
+  private
+
+  def set_default_query_params
+    params[:q] ||= { created_at_lt: Date.tomorrow, created_at_gteq: Date.yesterday }
+  end
+
+  def report_class
+    TransactionReport
+  end
+end
+```
 
 # Contributing
 
